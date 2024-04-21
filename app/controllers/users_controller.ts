@@ -54,4 +54,17 @@ export default class UsersController {
       },
     }
   }
+
+  async logout({ auth, response }: HttpContext) {
+    const user = auth.getUserOrFail()
+    const token = auth.user?.currentAccessToken.identifier
+
+    if (!token) {
+      return response.badRequest({ message: 'Token não encontrado' })
+    }
+
+    await User.accessTokens.delete(user, token)
+
+    return response.ok({ message: 'Desconectado' })
+  }
 }
