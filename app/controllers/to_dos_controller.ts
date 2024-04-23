@@ -51,4 +51,30 @@ export default class TodosController {
 
     return response.status(200).send({ success: 'Todo deletado com sucesso' })
   }
+
+  async updateTodo({ params, request, response, auth }: HttpContext) {
+    const user = await auth.authenticate()
+
+    let data = request.only(['name', 'description', 'completed'])
+
+    const todo = await Todo.find(params.id)
+
+    if (todo) {
+      if (todo.user_id !== user.id) {
+        return response.status(403).send({
+          error: 'Você não tem permissão para editar este todo.',
+        })
+      }
+
+      todo.merge(data)
+
+      await todo.save()
+
+      return todo
+    } else {
+      return response.status(404).send({
+        error: 'Todo não encontrada.',
+      })
+    }
+  }
 }
