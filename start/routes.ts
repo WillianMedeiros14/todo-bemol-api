@@ -23,3 +23,4 @@ router.post('authenticate', [UsersController, 'authenticate'])
 router.post('logout', [UsersController, 'logout']).use(middleware.auth())
 
 router.post('todo/create', [TodosController, 'create']).use(middleware.auth())
+router.get('todo/getAll', [TodosController, 'getAllTodo']).use(middleware.auth())

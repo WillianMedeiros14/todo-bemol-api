@@ -13,4 +13,12 @@ export default class TodosController {
 
     return newToDo
   }
+
+  async getAllTodo({ auth }: HttpContext) {
+    const user = await auth.authenticate()
+
+    const todoAll = await Todo.query().where('user_id', user.id).orderBy('createdAt', 'desc').exec()
+
+    return todoAll
+  }
 }
