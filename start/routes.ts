@@ -24,3 +24,5 @@ router.post('logout', [UsersController, 'logout']).use(middleware.auth())
 
 router.post('todo/create', [TodosController, 'create']).use(middleware.auth())
 router.get('todo/getAll', [TodosController, 'getAllTodo']).use(middleware.auth())
+router.get('todo/getTodoById/:id', [TodosController, 'getTodoById']).use(middleware.auth())
+router.delete('todo/deleteTodoById/:id', [TodosController, 'deleteTodoById']).use(middleware.auth())
