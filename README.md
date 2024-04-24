@@ -10,6 +10,8 @@ O front desse projeto se encontra em: [Front todo](https://github.com/WillianMed
 execute o servidor de desenvolvimento:
 
 ```bash
+node ace migration:run
+#
 npm run dev
 # or
 yarn dev
