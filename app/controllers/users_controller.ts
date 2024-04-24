@@ -3,6 +3,24 @@ import { createUser } from '#validators/user'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
+  public async me({ auth, response }: HttpContext) {
+    const user = await User.find(auth.user?.id)
+
+    if (user) {
+      let userCreated = {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        image: user.image,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      }
+      return userCreated
+    } else {
+      return response.status(404).send({ error: 'Usuário não encontrado' })
+    }
+  }
+
   public async register({ request, response }: HttpContext) {
     const data = request.only(['username', 'email', 'password', 'image'])
 

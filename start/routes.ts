@@ -18,6 +18,7 @@ router.get('/', async () => {
   }
 })
 
+router.get('me', [UsersController, 'me']).use(middleware.auth())
 router.post('register', [UsersController, 'register'])
 router.post('authenticate', [UsersController, 'authenticate'])
 router.post('logout', [UsersController, 'logout']).use(middleware.auth())
